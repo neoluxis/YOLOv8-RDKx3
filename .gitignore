@@ -1,8 +1,11 @@
 # 虚拟环境
-yolov8s/
+yolov8s/**
 
 # dataset
-dataset/*
+datasets/
+*.jpg
+*.txt
+*.cache
 
 ultralytics-repo/
 
