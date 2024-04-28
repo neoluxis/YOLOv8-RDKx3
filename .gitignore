@@ -1,0 +1,9 @@
+# 虚拟环境
+yolov8s/
+
+# dataset
+dataset/*
+
+ultralytics-repo/
+
+model_zoo/runs/

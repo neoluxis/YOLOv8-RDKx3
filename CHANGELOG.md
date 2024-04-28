@@ -1,0 +1,2 @@
+- /myolo/nn/modules/conv.py: Silu -> Relu
+- /myolo/nn/modules/block.py: Silu -> Relu
