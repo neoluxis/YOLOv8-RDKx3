@@ -42,17 +42,25 @@ class Detect(nn.Module):
         self.dfl = DFL(self.reg_max) if self.reg_max > 1 else nn.Identity()
     
     # 导出onnx所用forward函数
-    def forward1(self, x):
-        results = []
-        for i in range(self.nl):
-            dfl = self.cv2[i](x[i]).permute(0, 2, 3, 1).contiguous()
-            cls = self.cv3[i](x[i]).permute(0, 2, 3, 1).contiguous()
-            results.append(cls)
-            results.append(dfl)
-        return results
+    # def forward(self, x): # Self added
+    #     results = []
+    #     for i in range(self.nl):
+    #         dfl = self.cv2[i](x[i]).permute(0, 2, 3, 1).contiguous()
+    #         cls = self.cv3[i](x[i]).permute(0, 2, 3, 1).contiguous()
+    #         results.append(cls)
+    #         results.append(dfl)
+    #     return results
+    
+    # def forward(self, x): # By Wuc
+    #     bbox = []
+    #     cls = []
+    #     for i in range(self.nl):
+    #         bbox.append(self.cv2[i](x[i]))
+    #         cls.append(self.cv3[i](x[i]))
+    #     return (bbox, cls)
 
     # 训练模型所用forward函数
-    def forward(self, x):
+    def forward(self, x): # default
         """Concatenates and returns predicted bounding boxes and class probabilities."""
         for i in range(self.nl):
             x[i] = torch.cat((self.cv2[i](x[i]), self.cv3[i](x[i])), 1)
